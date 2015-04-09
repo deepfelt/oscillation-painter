@@ -11,14 +11,14 @@ var bg = true;
 function setup() {
 
 	
-  	colorMode(HSB, 100);
+  	colorMode(RGB	, 100);
 	canvas = createCanvas(450,450);
 	canvas.parent('canvas-container');
 	
 	background(0);
-	radSlider= createSlider(10, 500);
-    symSlider= createSlider(1, 4, 4);
-    symSlider.position(700, 50);
+	radSlider= createSlider(10, 200);
+    	symSlider= createSlider(1, 4, 4);
+    	symSlider.position(700, 50);
 	radSlider.position(550, 50);
 	xVelSlider = createSlider(-10, 10, 0);
 	yVelSlider = createSlider(-10, 10, 0);
@@ -30,8 +30,8 @@ function setup() {
 	satSlider.position(550, 180);
 	briSlider = createSlider(0,100, 80);
 	briSlider.position(550, 220);
-    lengthSlider = createSlider(0,150);
-    lengthSlider.position(550, 260);
+    	lengthSlider = createSlider(0,300);
+    	lengthSlider.position(550, 260);
 	button1 = createButton('Redraw');
 	radSlider.class("slider")
 	radSlider.id("size")
