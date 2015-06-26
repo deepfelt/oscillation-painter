@@ -1,0 +1,128 @@
+<html>
+
+<head>
+    <title>Oscillation Painter</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="icon" href="favicon.ico">>
+    <link href='http://fonts.googleapis.com/css?family=Maven+Pro' rel='stylesheet' type='text/css'>
+
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+ -->
+
+    <!-- Optional theme -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+ -->
+    <!-- Latest compiled and minified JavaScript -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+ -->
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+
+    <!-- uncomment lines below to include extra p5 libraries -->
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.3/p5.min.js"></script>
+    <script language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.3/addons/p5.dom.min.js"></script>
+    <!--<script language="javascript" src="../addons/p5.sound.js"></script>-->
+    <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-darkness/jquery-ui.min.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+    <script language="javascript" type="text/javascript" src="oscPaint.js"></script>
+    <
+    <!-- this line removes any default padding and style. you might only need one of these values set. -->
+
+</head>
+
+<body>
+    <div id="dialog" title="Controls">
+        <div class="container">
+            <div class="row">
+                <div class="column one">
+                    <div>Radius
+                        <br>
+                    <input id="radius" type="range" min="10" max="500"></div>
+                    <div>Symmetry
+                        <br>
+                    <input  id="symmetry" type="range" min="1" max="4"></div>
+                    <div >X Velocity
+                        <br>
+                    <input id="xvel" type="range" min="-10" max="10"></div>
+                    <div >Y Velocity
+                        <br>
+                    <input  id="yvel" type="range" min="-10" max="10"></div>
+                    <div >Rotation
+                        <br>
+                    <input id="avel" type="range" min="-20" max="20"></div>
+                    <div > Stroke Weight
+                        <br>
+                    <input id="swt" type="range" min="0" max="100"></div>
+                    <div >Stroke opacity
+                        <br> 
+                    <input id="skalpha" type="range" min="0" max="100"></div>
+
+                </div>
+
+                <div class="column one">
+                    Redraw Background
+                    <br>
+                    <input type="radio" name="redraw" id="redrawOn">on
+
+                    <input type="radio" name="redraw" id="redrawOff">off
+                    <div >Hue
+                        <br>
+                    <input id="hue" type="range" min="0" max="100"></div>
+
+                    <div >Saturation
+                        <br>
+                    <input id="sat" type="range" min="0" max="100"></div>
+                    <div >Brightness
+                        <br>
+                    <input id="bri" type="range" min="0" max="100"></div>
+
+                    <div >Shape
+                        <br>
+                    <input  id="shape" type="range" min="0" max="2"></div>
+                    <div >
+                        Opacity
+                        <br>
+                    <input id="alpha" type="range" min="0" max="100"></div>
+
+                    <div >Chain Length
+                        <br>
+                    <input id="len" type="range" min="0" max="300"></div>
+                </div>
+                 </div>
+        </div>
+    </div>
+        <div class="row">
+
+            <div class="column three">
+                <div id="canvas-container">
+
+
+                </div>
+
+            </div>
+        </div>
+
+   
+
+    <script>
+        /*
+         * jQuery UI Dialog: Change Dialog Position
+         * http://salman-w.blogspot.com/2013/05/jquery-ui-dialog-examples.html
+         */
+        $(function () {
+            $("#dialog").dialog({
+                resizable: true,
+				width: "50%",
+                position: {
+                    my: "right top",
+                    at: "right top",
+                    of: window
+                }
+            });
+            $("input").tooltip();
+        });
+    </script>
+</body>
+
+</html>

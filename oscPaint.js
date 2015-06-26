@@ -3,132 +3,306 @@ var yPos = [];
 var sound, amplitude;
 var lifespan;
 var radius;
-var hue;
-var a = Math.PI / 10;
+
+var a = 0;
 var button;
 var bg = true;
+var osc;
+var freq;
+var canvas;
+var redraw;
+var stroke_weight;
+var stroke_alpha;
+var xVel;
+var yVel;
+var aVel;
+var hueVal;
+var satVal;
+var briVal;
+var alphaVal;
+var chainLength;
+var shadows = false;
+var hueJitter;
+var sizeJitter;
+var shaDepth;
 
 function setup() {
+    "use strict";
+    colorMode(HSB, 100);
+    canvas = createCanvas(screen.availWidth/2, screen.availHeight*0.85);
+    canvas.parent('canvas-container');
+    background(0);
+    guiSetup();
 
-	
-  	colorMode(RGB	, 100);
-	canvas = createCanvas(450,450);
-	canvas.parent('canvas-container');
-	
-	background(0);
-	radSlider= createSlider(10, 200);
-    	symSlider= createSlider(1, 4, 4);
-    	symSlider.position(700, 50);
-	radSlider.position(550, 50);
-	xVelSlider = createSlider(-10, 10, 0);
-	yVelSlider = createSlider(-10, 10, 0);
-	xVelSlider.position(550, 80);
-	yVelSlider.position(550, 110)
-	hueSlider = createSlider(0,100);
-	hueSlider.position(550, 140);
-	satSlider = createSlider(0,100, 90);
-	satSlider.position(550, 180);
-	briSlider = createSlider(0,100, 80);
-	briSlider.position(550, 220);
-    	lengthSlider = createSlider(0,300);
-    	lengthSlider.position(550, 260);
-	button1 = createButton('Redraw');
-	radSlider.class("slider")
-	radSlider.id("size")
-	xVelSlider.class("slider");
-	yVelSlider.class("slider");
-	hueSlider.class("slider");
-  button1.position(550, 300);
-  button1.mousePressed(bgRedraw);
-  button1.class("myButton");
+
+    //	 button1.parent('button-container');
+
+}
+
+
+
+
+function draw() {
+
+    //        freq = map(yPos[0], 0, height, 200, 300);
+
+    bg = document.getElementById("redrawOn").checked;
+    shadows = document.getElementById("shadowsOn").checked;
+
+    if (bg) {
+        background(0);
+    }
+    //        osc.freq(freq);
+
+
+
+    radius = radSlider.value()
+    fluctuator(radius);
+//    if (xPos.length > 0) {
+////        console.log(xPos.length)
+//    }
+    //    slider labels
+
+    $("#radlabel").text("radius: " + this.radius);
+    $("#xvlabel").text("x velocity: " + this.xVel);
+    $("#yvlabel").text("y velocity: " + this.yVel);
+    $("#avlabel").text("rotation speed: " + this.aVel);
+    $("#swtlabel").text("Stroke Weight: " + this.stroke_weight);
+    $("#skalabel").text("Stroke Opacity: " + this.stroke_alpha + "%");
+    $("#huelabel").text("Hue: " + int(this.hueVal / 2.55) + "%");
+    $("#satlabel").text("Saturation: " + int(this.satVal) + "%");
+    $("#brilabel").text("Brightness: " + int(this.briVal) + "%");
+    $("#alphalabel").text("Fill Opacity: " + int(this.alphaVal) + "%");
+    $("#lenlabel").text("Chain Length: " + this.chainLength);
+    $("#jitterlabel").text("Hue Jitter: " + (1100 - this.hueJitter));
+    $("#shadepthlabel").text("Shadow Depth: " + (this.shaDepth));
+}
+
+function mouseDragged() {
+    if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
+
+        xPos.push(mouseX);
+        yPos.push(mouseY);
+    }
+    // console.log(xPos, yPos)
+
+}
+
+
+function guiSetup() {
+
+
+    radSlider = createSlider(10, 500);
+    radSlider.parent("radius");
+    
      
-	}
+    symSlider = createSlider(1, 4, 4);
+    symSlider.parent("symmetry");
+    xVelSlider = createSlider(-10, 10, 0);
+    xVelSlider.parent("xvel");
+    yVelSlider = createSlider(-10, 10, 0);
+    yVelSlider.parent("yvel");
+    aVelSlider = createSlider(-20, 20, 0);
+    aVelSlider.parent("avel");
+    lengthSlider = createSlider(0, 300);
+    lengthSlider.parent("len");
+    shapeSlider = createSlider(0, 2, 2);
+    shapeSlider.parent("shape");
+    
+    hueJitterSlider = createSlider(1, 1000);
+    hueJitterSlider.parent("huejitter");
 
+    hueSlider = createSlider(0, 255);
+    hueSlider.parent("hue");
+    satSlider = createSlider(0, 100, 90);
+    satSlider.parent("sat");
+    briSlider = createSlider(0, 100, 80);
+    briSlider.parent("bri");
+    alphaSlider = createSlider(0, 100, 100);
+    alphaSlider.parent("alpha");
+    strokeSlider = createSlider(0, 100, 2);
+    strokeSlider.parent("swt");
+    strokeAlpha = createSlider(0, 100, 100);
+    strokeAlpha.parent("skalpha");
+    
+    shadowSlider = createSlider(0,30);
+    shadowSlider.parent("shadepth");
 
-function bgRedraw(){
-	if (bg === true){
-		bg = false;
-	} else {
-		bg = true;
-	}
-	}
-function draw(){
-	if(bg === true){
-		background(0);
-	}
-
-	fill(0,50);
-	// rect(0,0,width, height);
-	stroke(0);
-	radius = radSlider.value()
-	elliptical(radius);
-	if (xPos.length > 0){
-	console.log(xPos.length)
-	}
 }
 
-function mouseDragged(){
-	if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
-
-	xPos.push(mouseX);
-	yPos.push(mouseY);
-}
-	// console.log(xPos, yPos)
+function mousePressed() {
+    //     osc.stop(); 
+    //    osc.start();
 
 }
-function elliptical(size, rec){
-	hueVal = hueSlider.value();
-	var satVal = satSlider.value();
-	var briVal = briSlider.value();
-    var symPlanes = symSlider.value();   
-    var chainLength = lengthSlider.value();
-	for (var i = 0; i < xPos.length; i++) {
-			xPos[i]+=xVelSlider.value()/10;
-			yPos[i]+=yVelSlider.value()/10;
-			if (yPos[0]>height +radius || xPos[0] > width + radius
-				||yPos[0]<0 - radius || xPos[0] < 0 - radius
-				|| xPos.length > chainLength){
-				yPos.shift();
-				xPos.shift();
 
-			}
+function mouseReleased() {
 
-  			rectMode(CENTER);
-  			lifespan = 255;
-  			lifespan-=1;
-  			strokeWeight(0.5);
-  			// noStroke();
-  			
+
+}
+
+function fluctuator(size, rec) {
+
+
+   
+    var ctx = document.getElementById("defaultCanvas").getContext('2d');
+    shaDepth = shadowSlider.value()/100;
+    if (shadows) {
+
+        ctx.shadowColor = '#3c3c39';
+        ctx.shadowBlur = radius * .02;
+        ctx.shadowOffsetY = radius * shaDepth;
+      
+
+
+    }
+    hueJitter = 1100 - hueJitterSlider.value();
+    var shapeDepth = shapeSlider.value();
+    hueVal = hueSlider.value();
+    satVal = satSlider.value();
+    briVal = briSlider.value();
+    var symPlanes = symSlider.value();
+    chainLength = lengthSlider.value();
+    alphaVal = alphaSlider.value();
+    stroke_weight = strokeSlider.value() / 10;
+    strokeWeight(stroke_weight);
+    stroke_alpha = strokeAlpha.value();
+    xVel = xVelSlider.value() / 10;
+    yVel = yVelSlider.value() / 10;
+    aVel = aVelSlider.value();
+    
+    stroke(0, stroke_alpha);
+    for (var i = 0; i < xPos.length; i++) {
+
+        xPos[i] += xVel;
+        yPos[i] += yVel;
+        if (yPos[0] > height + radius || xPos[0] > width + radius || yPos[0] <
+            0 - radius || xPos[0] < 0 -
+            radius ||
+            xPos.length > chainLength) {
+            yPos.shift();
+            xPos.shift();
+
+        }
+
+        rectMode(CENTER);
+        lifespan = 255;
+        lifespan -= 1;
+
+        // noStroke();
+
+        push();
+        scale(-1);
+        translate(xPos[i], yPos[i]);
+        rotate(a);
+
+        fill(noise(yPos[i] / hueJitter) * (hueVal), satVal, briVal, alphaVal);
+        if (shapeDepth >= 1) {
+            rect(0, 0, noise(yPos[i] / 10) * size * sin(millis() / 1000),
+                noise(yPos[i] / 10) * size *
+                cos(a / 1000));
+
+        }
+        if (shapeDepth <= 1) {
+            ellipse(0, 0, noise(yPos[i] / 10) * size * sin(millis() / 1000),
+                noise(yPos[i] / 10) * size *
+                cos(a /
+                    1000));
+
+        }
+        pop();
+        push();
+
+        translate(xPos[i], yPos[i]);
+        rotate(a);
+
+        fill(noise(yPos[i] / hueJitter) * (hueVal), satVal, briVal, alphaVal);
+        if (shapeDepth >= 1) {
+            rect(0, 0, noise(yPos[i] / 10) * size * sin(millis() / 1000),
+                noise(yPos[i] / 10) * size *
+                cos(a / 1000));
+
+        }
+        if (shapeDepth <= 1) {
+            ellipse(0, 0, noise(yPos[i] / 10) * size * sin(millis() / 1000),
+                noise(yPos[i] / 10) * size *
+                cos(a / 1000));
+
+        }
+        pop();
+        if (symPlanes > 1) {
             push();
 
-  			translate(xPos[i], yPos[i]);
-  			rotate(a);
+            fill(noise(yPos[i] / hueJitter) * (hueVal), satVal, briVal, alphaVal)
+            translate(width - xPos[i], yPos[i]);
 
-				fill(noise(yPos[i]/100)*(hueVal), satVal, briVal);
-            
-				ellipse(0,0, noise(yPos[i]/10)*size*sin(millis()/1000), noise(yPos[i]/10)*size*cos(a/1000));
-			pop();
-            if(symPlanes > 1){
-			push();
-			fill(noise(yPos[i]/100)*(hueVal/2), satVal, briVal)
-			translate(width - xPos[i], yPos[i]);
-			 rotate(-a);
-
-			ellipse(0,0, noise(yPos[i]/10)*size*sin(millis()/1000), noise(yPos[i]/10)*size*cos(a/1000));
-			pop();
+            rotate(-a);
+            if (shapeDepth >= 1) {
+                rect(0, 0, noise(yPos[i] / 10) * size * sin(millis() / 1000),
+                    noise(yPos[i] / 10) * size *
+                    cos(a / 1000));
             }
-			a+=0.0001;
-            if(symPlanes > 2){
-			fill(noise(yPos[i]/100)*(hueVal/2), satVal, briVal)
-			ellipse(yPos[i], xPos[i], noise(yPos[i]/10)*size*sin(millis()/1000), noise(yPos[i]/10)*size*cos(millis()/1000));
+            if (shapeDepth <= 1) {
+                ellipse(0, 0, noise(yPos[i] / 10) * size * sin(millis() /
+                        1000), noise(yPos[i] / 10) *
+                    size * cos(a / 1000));
             }
-            if(symPlanes >3 ) {
-			 ellipse(width - yPos[i], xPos[i], noise(yPos[i]/10)*size*sin(millis()/1000), noise(yPos[i]/10)*size*cos(millis()/1000));
+
+            pop();
+        }
+        a += 0.0001 * aVel;
+        if (symPlanes > 2) {
+            fill(noise(yPos[i] / hueJitter) * (hueVal), satVal, briVal, alphaVal)
+            push();
+            translate(yPos[i], xPos[i]);
+            rotate(a);
+
+            if (shapeDepth >= 1) {
+                rect(0, 0, noise(yPos[i] / 10) * size * sin(millis() / 1000),
+                    noise(yPos[i] / 10) * size * cos(millis() / 1000));
             }
-         
+            if (shapeDepth <= 1) {
+                ellipse(0, 0, noise(yPos[i] / 10) * size * sin(millis() /
+                        1000),
+                    noise(yPos[i] / 10) * size * cos(millis() / 1000));
+            }
+            pop();
 
-		}
 
 
+            push();
+            translate(width - yPos[i], xPos[i])
+            rotate(-a);
+            if (shapeDepth >= 1) {
+                rect(0, 0, noise(yPos[i] / 10) * size * sin(millis() / 1000),
+                    noise(yPos[i] / 10) * size *
+                    cos(
+                        millis() / 1000));
+            }
+            if (shapeDepth <= 1) {
+                ellipse(0, 0, noise(yPos[i] / 10) * size * sin(millis() /
+                        1000), noise(yPos[i] / 10) *
+                    size * cos(
+                        millis() / 1000));
+            }
+            pop();
+        }
+    }
 
 }
+
+//<!--    jQuery UI dialog box-->
+
+
+$(function () {
+    $("#dialog").dialog({
+        resizable: true,
+        width: "50%",
+        position: {
+            my: "right top",
+            at: "right top",
+            of: window
+        }
+
+    });
+});
