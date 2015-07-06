@@ -1,60 +1,254 @@
 * {
+    font-family: 'Maven Pro', sans-serif;
+    font-size: 12px;
+    
+    text-align: center;
+    background: #000000;
+    color: #ffffff;
+    text-transform: uppercase;
+    background-size: contain
 
+}
+html, body {
+ height: 100%;
+  overflow: hidden;  
+    
+}
+body{
+ position: relative;   
+}
+body > div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-draggable.ui-resizable {
+    max-width: 600px;
+    background: #000;
+}
+/* --------------------------------------------------
+Container
+-------------------------------------------------- */
 
-	background: #000000;
+div#container,
+div.container {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0;
 }
-button { 
-color: #fff;
-
-.slider {
-	color: #FFF;
-	
+/* --------------------------------------------------
+Grid
+-------------------------------------------------- */
+#controls{
+    
+ float:right;
+    top:10%;
+    right: 30px;
+    position:relative;
+    max-width: 400px;
+    
+    
 }
-}
-button {
-	-moz-box-shadow: 0px 1px 0px 0px #1c1b18;
-	-webkit-box-shadow: 0px 1px 0px 0px #1c1b18;
-	box-shadow: 0px 1px 0px 0px #1c1b18;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #eae0c2), color-stop(1, #ccc2a6));
-	background:-moz-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
-	background:-webkit-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
-	background:-o-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
-	background:-ms-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
-	background:linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eae0c2', endColorstr='#ccc2a6',GradientType=0);
-	background-color:#eae0c2;
-	-moz-border-radius:15px;
-	-webkit-border-radius:15px;
-	border-radius:15px;
-	border:2px solid #333029;
-	display:inline-block;
-	cursor:pointer;
-	color:#505739;
-	font-family:arial;
-	font-size:14px;
-	font-weight:bold;
-	padding:12px 16px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #ffffff;
-}
-button:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ccc2a6), color-stop(1, #eae0c2));
-	background:-moz-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
-	background:-webkit-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
-	background:-o-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
-	background:-ms-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
-	background:linear-gradient(to bottom, #ccc2a6 5%, #eae0c2 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ccc2a6', endColorstr='#eae0c2',GradientType=0);
-	background-color:#ccc2a6;
-}
-button:active {
-	position:relative;
-	top:1px;
+#ctrl-1, #ctrl-2 {
+    width:45%;
+    padding:5px;
+    display: inline;
+    
 }
 
-canvas{
-	cursor:crosshair;
-	margin-left:50 ;
-	margin-right: 50;
-	margin-top: 100;
+.column-row,
+.row {
+    margin: 0 0 18px -20px;
+}
+
+.column,
+.columns {
+    float: left;
+    display: inline;
+    margin: 0 0 0 0px;
+}
+
+.one {
+    width: 300px;
+}
+
+.two {
+    width: 620px;
+}
+
+.three {
+    width: 940px;
+}
+
+.offset-by-one-half {
+    margin-left: 160px;
+}
+
+.offset-by-one {
+    margin-left: 320px;
+}
+/* Clear the columns automagically, thanks @kneath */
+
+.column-row:after,
+.row:after,
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+* html .column-row,
+* html .row,
+* html .clearfix {
+    height: 1%;
+}
+
+.column-row,
+.row,
+.clearfix {
+    display: inline-block;
+}
+
+.column-row,
+.row,
+.clearfix {
+    display: block;
+}
+/* IE6 Problems ---------- */
+
+body.ie .column-row {
+    width: 960px;
+}
+
+body.ie .two-thirds .column-row {
+    width: 2580px;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    color: #555;
+    padding: 5px  0;
+    background: none;
+    font-family: sans-serif;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    height: 5px;
+    background: #ddd;
+    border: none;
+    border-radius: 3px;
+}
+
+input[type=range]::-ms-track {
+    height: 5px;
+    background: #ddd;
+    border: none;
+    border-radius: 3px;
+}
+
+input[type=range]::-moz-range-track {
+    height: 5px;
+    background: #ddd;
+    border: none;
+    border-radius: 3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background: #999;
+    margin-top: -5px;
+    position: relative;
+}
+
+input[type=range]::-ms-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #333;
+    margin-top: -5px;
+    position: relative;
+}
+
+input[type=range]::-moz-range-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #333;
+    margin-top: -5px;
+    position: relative;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]:focus::-webkit-slider-thumb:after {
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    background: #eee;
+    border-radius: 5px;
+    color: #333;
+    padding: 5px 10px;
+    border: 2px solid #333;
+}
+
+input[type=range]:focus::-ms-thumb:after {
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    background: #eee;
+    border-radius: 5px;
+    color: #333;
+    padding: 5px 10px;
+    border: 2px solid #333;
+}
+
+input[type=range]:focus::-moz-range-thumb:after {
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #eee;
+    border-radius: 2.5px;
+    color: #333;
+    padding: 2px 10px;
+    border: 2px solid #333;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: rgba(110, 103, 129, 0.99);
+}
+
+input[type=range]:focus::-ms-track {
+    background: #ccc;
+}
+
+ul {
+    list-style-type: none;
+    text-align:
+}
+
+#canvas-container {
+    position: absolute;
+    left: 1%;
+    top: 1%;
+    
+}
+
+canvas {
+    box-shadow: 0px 0px 20px #ddd;
+    border: outset 2px;
+    cursor:crosshair;
+    overflow: hidden;
 }
