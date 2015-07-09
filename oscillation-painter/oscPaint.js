@@ -57,7 +57,7 @@ shaDepth = void 0;
 setup = function() {
   'use strict';
   colorMode(HSB, 100);
-  canvas = createCanvas(screen.availWidth / 2, screen.availHeight * 0.75);
+  canvas = createCanvas(600, 600 );
   canvas.parent('canvas-container');
   background(0);
   guiSetup();
